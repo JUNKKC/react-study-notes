@@ -1,1 +1,1 @@
-# react-study-notes
+# section 2 까지 완료 8.15. 1시 50분
