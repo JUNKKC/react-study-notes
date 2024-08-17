@@ -1,5 +1,6 @@
 // CommonJS 모듈 시스템
 // const { add, sub } = require("./math");
+
 import { add, sub } from "./math.js";
 
 import randomColor from "randomcolor";
