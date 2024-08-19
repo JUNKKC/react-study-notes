@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 // 간단한 회원다입 폼
 // 1. 이름
 // 2. 생년월일
@@ -12,49 +12,44 @@ const Register = () => {
     country: "",
     bio: "",
   });
+  const countRef = useRef(0);
+  const inputRef = useRef();
 
-  
-  const onChangeName = (e) => {
+  const onChange = (e) => {
+    countRef.current++;
     setInput({
       ...input,
-      name: e.target.value,
+      [e.target.name]: e.target.value,
     });
+  };
+  const onSubmit = () => {
+    if (input.name === "") {
+      inputRef.current.focus();
+    }
   };
 
-  const onChangeBirth = (e) => {
-    setInput({
-      ...input,
-      birth: e.target.value,
-    });
-  };
-
-  const onChangeCountry = (e) => {
-    setInput({
-      ...input,
-      country: e.target.value,
-    });
-  };
-  const onChangeBio = (e) => {
-    setInput({
-      ...input,
-      bio: e.target.value,
-    });
-  };
   return (
     <div>
       <div>
         <input
+          ref={inputRef}
+          name="name"
           value={input.name}
-          onChange={onChangeName}
+          onChange={onChange}
           placeholder={"이름"}
         />
       </div>
 
       <div>
-        <input value={input.birth} onChange={onChangeBirth} type="date" />
+        <input
+          name="birth"
+          value={input.birth}
+          onChange={onChange}
+          type="date"
+        />
       </div>
       <div>
-        <select value={input.country} onChange={onChangeCountry}>
+        <select name="country" value={input.country} onChange={onChange}>
           <option>-</option>
           <option>한국</option>
           <option>미국</option>
@@ -62,8 +57,9 @@ const Register = () => {
         </select>
       </div>
       <div>
-        <textarea value={input.bio} onChange={onChangeBio} />
+        <textarea name="bio" value={input.bio} onChange={onChange} />
       </div>
+      <button onClick={onSubmit}>제출</button>
     </div>
   );
 };
